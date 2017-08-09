@@ -1,0 +1,179 @@
+<!-- This web page will, once debugged and expanded, play Conway's "The Game of Life,"
+	that is, will run cellular automata in that familiar pattern of replicating "life."
+	You can click any box in the table to change it from LIVE to DEAD or vice versa.
+	You should also be able to freeze/unfreeze time with a button
+	 and highlight the square you're on with mouseover
+	
+	Will Briggs, edited and updated by Ryan Hayes
+	CS 385
+	Spring 2013
+	-->
+<html>
+<head>
+ <script src="utilities.js" type="text/javascript"></script> <!-- provides function addEvent -->
+</head>
+<body>
+
+<center>
+	<h1>The Game of Life</h2>
+
+	<p>Click in any square to change its value.</p>
+
+<button onmousedown = "freezeDisplay()" id = "freezeButton" value = "OFF">Begin</button>
+<br></br>
+
+<!-- Click freeze/unfreeze to start/stop the progress of the Game of Life -->
+<table border="1" onmousedown = "buttonClicked()" width = "500px" height = "500px">
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+ <tr><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td><td> </td> <td> </td><td> </td><td> </td></tr>
+
+</table>
+<p id="demo"></p> <!-- This is for the timer, if you want it -->
+</center>
+<script type="text/javascript">
+ 'use strict'
+  var ROWS = 30;		//How big is the table?
+  var CLMS = 30;
+  var LIVE =  "red";	//What constitutes a live or dead cell?
+  var DEAD = "white";
+
+  initBoard();
+  function initBoard()//here we initialize the board and it's cells
+  {
+	var board = document.getElementsByTagName ('TABLE');
+	
+	board[0].style.background = "black";					//set table background to black
+	
+	var cells = document.getElementsByTagName('TD');		//get array of all "cells"
+	
+	for (var i = 0, count = cells.length; i < count; ++i)	//for each cell
+	{														//initialize cells in some way
+		cells[i].style.width = '10px';
+		cells[i].style.border = "0";
+		cells[i].style.background = DEAD;
+	}
+  }
+  
+    var myVar = 0;
+  function freezeDisplay() //this function handles what happens when the freezeDisplay button is clicked
+  {
+	  if(document.getElementById("freezeButton").value == "OFF") 				//if the value is off
+	  {
+		myVar=setInterval(function(){myTimer()},1000);							//then start timer again
+		document.getElementById("freezeButton").value = "ON";					//change value to on
+		document.getElementById("freezeButton").innerHTML = "Freeze Display"; 	//and change html to "freeze display"
+	  }
+	  else																		//otherwise
+	  {
+		clearInterval(myVar);													//stop timing
+		document.getElementById("freezeButton").value = "OFF";					//set  value to off
+		document.getElementById("freezeButton").innerHTML = "UnFreeze Display"; //and change html to "unfreeze"
+	  }
+  }
+  
+  function isInRange (row, clm)						//Is this cell location inside the table?
+  {
+    return row >= 0 && clm >= 0 && row < ROWS && clm < CLMS;
+  }
+
+  function countLivingNeighbors (cells, row, clm)	//How many live neighbors does the cell have?
+  {
+    var livingNeighbors = 0;
+
+    for (var r = row-1; r <= row+1; ++r)
+      for (var c = clm-1; c <= clm+1; ++c)
+        if (r != row || c != clm)         //Don't count position row, clm as neighbor of itself
+          if (isInRange (r, c))           //Don't count those off the bounds of the array cells
+            if (cells[r*CLMS+c].style.background == LIVE)
+              livingNeighbors++;
+
+    return livingNeighbors;
+  }
+
+  function myTimer()								//What happens when timer activates?  Next generation
+  {													// in the Game of Life
+    var d=new Date();
+
+		var t = d.toLocaleTimeString();
+		document.getElementById("demo").innerHTML=t;	//(And an update to the timer)
+
+		var cells = document.getElementsByTagName ('TD');       //Get all cells
+		var newCells = new Array;
+
+		for (var i = 0, count = cells.length; i < count; ++i)//Get what all cells shd be in next timeslice
+		  switch (countLivingNeighbors (cells, Math.floor(i/CLMS), (i%CLMS)))
+		  {
+		   case 2: 
+		   {
+				if (cells[i].style.background == LIVE)
+					newCells[i] = LIVE; 
+				break;
+		   }
+		   case 3: newCells[i] = LIVE; break;				//These are the rules of the Game of Life
+		   default: newCells[i] = DEAD; 
+		  }
+
+		for (i = 0, count = cells.length; i < count; ++i)  //Update table for new cell values
+			cells[i].style.background = newCells[i];
+	
+    
+  }
+  
+		//Listen for these events...
+  //addEvent (document.body, 'click', flipCell); 	//Add a function to flip cell from live to dead or back on mouse click
+  function flipCell (e)							//Flip a cell from alive to dead or vice versa
+  {
+   if (typeof e == 'undefined')
+   { 
+	    e = window.event; //we always do this in an event handler, to make IE work
+		var target = e.target || e.srcElement;  
+   }
+   else
+   {
+	  var target = e; 
+   }
+	  
+     //Another IE hack, so we can get the element the event relates to
+
+   if (target.tagName == 'TD')					 //If it's a table cell... flip it from live to dead or the reverse
+   		target.style.background = (target.style.background == LIVE ? DEAD : LIVE);
+  } 
+  
+  function buttonClicked()//this is used to check if a square has been clicked
+  {
+	var e = event.target;
+	
+	addEvent (document.body, 'click', flipCell(e));
+  }
+	  
+</script>
+</body>
+</html>
